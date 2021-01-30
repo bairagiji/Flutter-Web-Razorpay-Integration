@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<meta content="width=device-width" name="viewport">
+<head><title>RazorPay Web Payment</title></head>
+<body>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+// Access Your cookie/ sesson storage here and use that variable in below file.
+
+var orderId = window.sessionStorage.getItem('userName');
+
+       var options = {
+         "key": "rzp_test_Ar7DUlBLMgUW6e",
+          "amount": "50000", "currency": "INR",
+          "name": "Acme Corp",
+          "description": "Test Transaction",
+          "image": "https://example.com/your_logo",
+          "handler": function (response){
+             window.parent.postMessage("SUCCESS","*");      //2
+             alert(response.razorpay_payment_id);
+             alert(response.razorpay_order_id);
+             alert(response.razorpay_signature)
+          },
+          "prefill": {
+             "name": orderId, //use the above variable
+             "email": orderId, //use the above variable
+             "contact": "9999999999"
+           },
+           "notes": {
+             "address": "Autofy"
+          },
+          "theme": {
+             "color": "#DF0145"
+          },
+          "modal": {
+            "ondismiss": function(){
+               window.parent.postMessage("MODAL_CLOSED","*");   //3
+            }
+          }
+       };
+
+       var rzp1 = new Razorpay(options);
+       window.onload = function(e){  //1
+          rzp1.open();
+          e.preventDefault();
+       }
+
+
+</script>
+</body>
+</html>

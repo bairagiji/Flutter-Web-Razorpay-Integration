@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<body>
+<div><p>
+    <center>Outer Html file showing app variable</center>
+    </p></div>
+<div id="result1"></div>
+<br>
+<div id="result2"></div>
+<br>
+<div id="result3"></div>
+
+
+<!--Test file-->
+<script>
+// Check browser support
+if (typeof(Storage) !== "undefined") {
+  // Retrieve
+  document.getElementById("result1").innerHTML = sessionStorage.getItem("userName");
+  document.getElementById("result2").innerHTML = localStorage.getItem("userName");
+  document.getElementById("result3").innerHTML = document.cookie;
+
+} else {
+  document.getElementById("result").innerHTML = "Sorry, your browser does not support Web Storage...";
+}
+
+</script>
+
+</body>
+</html>
